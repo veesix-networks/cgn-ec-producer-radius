@@ -1,6 +1,13 @@
 FROM freeradius/freeradius-server:3.2.7
 
-ARG KAFKA_BOOTSTRAP_SERVER
+# Main freeradius parts
+COPY ./mods-enabled /etc/raddb/mods-enabled
+COPY ./sites-enabled /etc/raddb/sites-enabled
+COPY ./clients.conf /etc/raddb/clients.conf
+COPY ./policy.d/veesixnetworks /etc/raddb/policy.d/veesxinetworks
+
+ARG KAFKA_BOOTSTRAP_SERVER="kafka:9092"
+ENV KAFKA_BOOTSTRAP_SERVER=${KAFKA_BOOTSTRAP_SERVER}
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
